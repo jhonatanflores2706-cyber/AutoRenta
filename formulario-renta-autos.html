@@ -147,6 +147,7 @@
             gap: 15px;
             margin-top: 40px;
             justify-content: center;
+            flex-wrap: wrap;
         }
 
         button {
@@ -168,6 +169,17 @@
         .btn-submit:hover {
             transform: translateY(-2px);
             box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-contract {
+            background: linear-gradient(135deg, #4caf50 0%, #45a049 100%);
+            color: white;
+            min-width: 200px;
+        }
+
+        .btn-contract:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(76, 175, 80, 0.4);
         }
 
         .btn-reset {
@@ -201,6 +213,146 @@
             color: #d32f2f;
         }
 
+        /* Modal para el contrato */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 2% auto;
+            padding: 30px;
+            border: 1px solid #888;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 900px;
+            max-height: 85vh;
+            overflow-y: auto;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .close-modal {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .close-modal:hover {
+            color: #000;
+        }
+
+        .modal-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            margin: -30px -30px 30px -30px;
+            text-align: center;
+            border-radius: 10px 10px 0 0;
+        }
+
+        .contract-content {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.8;
+            color: #333;
+        }
+
+        .contract-title {
+            text-align: center;
+            font-size: 1.5em;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .contract-section {
+            margin-bottom: 20px;
+        }
+
+        .contract-section-title {
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+
+        .contract-data {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .contract-field {
+            margin-bottom: 10px;
+        }
+
+        .contract-label {
+            font-weight: bold;
+            color: #666;
+        }
+
+        .contract-value {
+            margin-left: 10px;
+        }
+
+        .modal-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 30px;
+        }
+
+        .btn-print {
+            background: linear-gradient(135deg, #ff9800 0%, #f57c00 100%);
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .btn-print:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 152, 0, 0.4);
+        }
+
+        .btn-download {
+            background: linear-gradient(135deg, #2196F3 0%, #1976D2 100%);
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .btn-download:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(33, 150, 243, 0.4);
+        }
+
+        .btn-close-modal {
+            background: #f0f0f0;
+            color: #333;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .btn-close-modal:hover {
+            background: #e0e0e0;
+        }
+
         @media (max-width: 768px) {
             .form-row {
                 grid-template-columns: 1fr;
@@ -220,6 +372,40 @@
 
             button {
                 width: 100%;
+            }
+
+            .contract-data {
+                grid-template-columns: 1fr;
+            }
+
+            .modal-content {
+                width: 95%;
+                margin: 10% auto;
+            }
+        }
+
+        @media print {
+            body {
+                background: white;
+            }
+
+            .modal {
+                display: none;
+            }
+
+            .modal-content {
+                box-shadow: none;
+                margin: 0;
+                width: 100%;
+                max-height: 100%;
+            }
+
+            .modal-buttons {
+                display: none;
+            }
+
+            .close-modal {
+                display: none;
             }
         }
     </style>
@@ -427,27 +613,6 @@
                     </div>
                 </div>
 
-                <!-- SECCIÓN: TÉRMINOS Y CONDICIONES -->
-                <div class="form-row full" style="margin-top: 30px;">
-                    <div class="form-group">
-                        <div class="checkbox-item">
-                            <input type="checkbox" id="terms" name="terms" required>
-                            <label for="terms">Acepto los Términos y Condiciones <span class="required">*</span></label>
-                        </div>
-                        <span class="error-message" id="termsError">Debes aceptar los términos y condiciones</span>
-                    </div>
-                </div>
-
-                <div class="form-row full">
-                    <div class="form-group">
-                        <div class="checkbox-item">
-                            <input type="checkbox" id="privacy" name="privacy" required>
-                            <label for="privacy">Acepto la Política de Privacidad <span class="required">*</span></label>
-                        </div>
-                        <span class="error-message" id="privacyError">Debes aceptar la política de privacidad</span>
-                    </div>
-                </div>
-
                 <!-- MENSAJE DE ÉXITO -->
                 <div class="success-message" id="successMessage">
                     ✅ ¡Formulario enviado exitosamente! Nos contactaremos pronto para confirmar tu reserva.
@@ -456,14 +621,254 @@
                 <!-- BOTONES -->
                 <div class="button-group">
                     <button type="submit" class="btn-submit">✓ Enviar Solicitud de Renta</button>
+                    <button type="button" class="btn-contract" id="btnGenerarContrato">📄 Generar Contrato</button>
                     <button type="reset" class="btn-reset">✕ Limpiar Formulario</button>
                 </div>
             </form>
         </div>
     </div>
 
+    <!-- Modal del Contrato -->
+    <div id="contractModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <div class="modal-header">
+                <h2>Contrato de Renta de Vehículo</h2>
+            </div>
+            <div id="contractContent" class="contract-content"></div>
+            <div class="modal-buttons">
+                <button class="btn-print" onclick="printContract()">🖨️ Imprimir</button>
+                <button class="btn-download" onclick="downloadContract()">⬇️ Descargar PDF</button>
+                <button class="btn-close-modal" onclick="closeContractModal()">Cerrar</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf/0.10.1/html2pdf.bundle.min.js"></script>
+
     <script>
         const form = document.getElementById('rentalForm');
+        const contractModal = document.getElementById('contractModal');
+        const closeModal = document.querySelector('.close-modal');
+        const btnGenerarContrato = document.getElementById('btnGenerarContrato');
+
+        // Cerrar modal
+        closeModal.onclick = closeContractModal;
+
+        // Click fuera del modal
+        window.onclick = function(event) {
+            if (event.target === contractModal) {
+                closeContractModal();
+            }
+        }
+
+        // Generar Contrato
+        btnGenerarContrato.addEventListener('click', function(e) {
+            e.preventDefault();
+            let isValid = true;
+            const fields = form.querySelectorAll('input, select, textarea');
+
+            fields.forEach(field => {
+                if (!validateField(field)) {
+                    isValid = false;
+                }
+            });
+
+            // Validar fechas
+            const pickupDate = new Date(document.getElementById('pickupDate').value);
+            const returnDate = new Date(document.getElementById('returnDate').value);
+            const today = new Date();
+
+            if (pickupDate < today) {
+                showError('pickupDateError', 'La fecha de retiro no puede ser en el pasado');
+                isValid = false;
+            }
+
+            if (returnDate <= pickupDate) {
+                showError('returnDateError', 'La fecha de devolución debe ser posterior a la de retiro');
+                isValid = false;
+            }
+
+            if (isValid) {
+                generateContract();
+            }
+        });
+
+        function generateContract() {
+            const formData = {
+                firstName: document.getElementById('firstName').value,
+                lastName: document.getElementById('lastName').value,
+                email: document.getElementById('email').value,
+                phone: document.getElementById('phone').value,
+                documentType: document.getElementById('documentType').value,
+                documentNumber: document.getElementById('documentNumber').value,
+                licenseNumber: document.getElementById('licenseNumber').value,
+                licenseExpiry: document.getElementById('licenseExpiry').value,
+                vehicleType: document.getElementById('vehicleType').value,
+                pickupDate: document.getElementById('pickupDate').value,
+                returnDate: document.getElementById('returnDate').value,
+                pickupLocation: document.getElementById('pickupLocation').value,
+                returnLocation: document.getElementById('returnLocation').value,
+                entrega: document.querySelector('input[name="entrega"]:checked').value,
+                paymentMethod: document.getElementById('paymentMethod').value,
+                comments: document.getElementById('comments').value
+            };
+
+            const seguros = Array.from(document.querySelectorAll('input[name="seguros"]:checked')).map(el => el.value).join(', ') || 'Ninguno';
+
+            // Calcular días de renta
+            const pickup = new Date(formData.pickupDate);
+            const returnD = new Date(formData.returnDate);
+            const days = Math.ceil((returnD - pickup) / (1000 * 60 * 60 * 24));
+
+            const contractHTML = `
+                <div class="contract-title">CONTRATO DE ALQUILER DE VEHÍCULO</div>
+
+                <div class="contract-section">
+                    <div class="contract-section-title">I. INFORMACIÓN DEL CLIENTE</div>
+                    <div class="contract-data">
+                        <div class="contract-field">
+                            <span class="contract-label">Nombre:</span>
+                            <span class="contract-value">${formData.firstName} ${formData.lastName}</span>
+                        </div>
+                        <div class="contract-field">
+                            <span class="contract-label">Email:</span>
+                            <span class="contract-value">${formData.email}</span>
+                        </div>
+                    </div>
+                    <div class="contract-data">
+                        <div class="contract-field">
+                            <span class="contract-label">Teléfono:</span>
+                            <span class="contract-value">${formData.phone}</span>
+                        </div>
+                        <div class="contract-field">
+                            <span class="contract-label">Tipo de Documento:</span>
+                            <span class="contract-value">${formData.documentType}</span>
+                        </div>
+                    </div>
+                    <div class="contract-data">
+                        <div class="contract-field">
+                            <span class="contract-label">Número de Documento:</span>
+                            <span class="contract-value">${formData.documentNumber}</span>
+                        </div>
+                        <div class="contract-field">
+                            <span class="contract-label">Número de Licencia:</span>
+                            <span class="contract-value">${formData.licenseNumber}</span>
+                        </div>
+                    </div>
+                    <div class="contract-data">
+                        <div class="contract-field">
+                            <span class="contract-label">Vencimiento de Licencia:</span>
+                            <span class="contract-value">${formData.licenseExpiry}</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="contract-section">
+                    <div class="contract-section-title">II. INFORMACIÓN DEL VEHÍCULO</div>
+                    <div class="contract-data">
+                        <div class="contract-field">
+                            <span class="contract-label">Tipo de Vehículo:</span>
+                            <span class="contract-value">${formData.vehicleType}</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="contract-section">
+                    <div class="contract-section-title">III. FECHAS Y UBICACIONES</div>
+                    <div class="contract-data">
+                        <div class="contract-field">
+                            <span class="contract-label">Fecha de Retiro:</span>
+                            <span class="contract-value">${formData.pickupDate}</span>
+                        </div>
+                        <div class="contract-field">
+                            <span class="contract-label">Fecha de Devolución:</span>
+                            <span class="contract-value">${formData.returnDate}</span>
+                        </div>
+                    </div>
+                    <div class="contract-data">
+                        <div class="contract-field">
+                            <span class="contract-label">Duración de Renta:</span>
+                            <span class="contract-value">${days} día(s)</span>
+                        </div>
+                    </div>
+                    <div class="contract-data">
+                        <div class="contract-field">
+                            <span class="contract-label">Lugar de Retiro:</span>
+                            <span class="contract-value">${formData.pickupLocation}</span>
+                        </div>
+                        <div class="contract-field">
+                            <span class="contract-label">Lugar de Devolución:</span>
+                            <span class="contract-value">${formData.returnLocation}</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="contract-section">
+                    <div class="contract-section-title">IV. OPCIONES Y SEGUROS</div>
+                    <div class="contract-data">
+                        <div class="contract-field">
+                            <span class="contract-label">Seguros Contratados:</span>
+                            <span class="contract-value">${seguros}</span>
+                        </div>
+                        <div class="contract-field">
+                            <span class="contract-label">Opción de Entrega:</span>
+                            <span class="contract-value">${formData.entrega === 'sede' ? 'Retiro en Sede' : 'Entrega a Domicilio'}</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="contract-section">
+                    <div class="contract-section-title">V. FORMA DE PAGO</div>
+                    <div class="contract-data">
+                        <div class="contract-field">
+                            <span class="contract-label">Método de Pago:</span>
+                            <span class="contract-value">${formData.paymentMethod}</span>
+                        </div>
+                    </div>
+                </div>
+
+                ${formData.comments ? `
+                <div class="contract-section">
+                    <div class="contract-section-title">VI. OBSERVACIONES ADICIONALES</div>
+                    <div class="contract-data">
+                        <div class="contract-field">
+                            <span class="contract-label">Comentarios:</span>
+                            <span class="contract-value">${formData.comments}</span>
+                        </div>
+                    </div>
+                </div>
+                ` : ''}
+
+                <div class="contract-section" style="margin-top: 40px; border-top: 2px solid #667eea; padding-top: 20px;">
+                    <p style="text-align: center; margin-top: 30px;">Fecha de Generación: ${new Date().toLocaleDateString('es-ES')}</p>
+                    <p style="text-align: center; margin-top: 20px; font-style: italic;">Este contrato ha sido generado digitalmente por AutoRenta</p>
+                </div>
+            `;
+
+            document.getElementById('contractContent').innerHTML = contractHTML;
+            contractModal.style.display = 'block';
+        }
+
+        function closeContractModal() {
+            contractModal.style.display = 'none';
+        }
+
+        function printContract() {
+            window.print();
+        }
+
+        function downloadContract() {
+            const element = document.getElementById('contractContent');
+            const opt = {
+                margin: 10,
+                filename: `contrato_autorenta_${Date.now()}.pdf`,
+                image: { type: 'jpeg', quality: 0.98 },
+                html2canvas: { scale: 2 },
+                jsPDF: { orientation: 'portrait', unit: 'mm', format: 'a4' }
+            };
+            html2pdf().set(opt).save(opt.filename);
+        }
 
         // Validación en tiempo real
         form.addEventListener('input', function(e) {
