@@ -456,10 +456,9 @@
                         <label for="documentType">Tipo de Documento <span class="required">*</span></label>
                         <select id="documentType" name="documentType" required>
                             <option value="">-- Selecciona un tipo --</option>
-                            <option value="cedula">Cédula de Identidad</option>
+                            <option value="cedula">Cédula o INE</option>
                             <option value="pasaporte">Pasaporte</option>
                             <option value="licencia">Licencia de Conducir</option>
-                            <option value="otro">Otro</option>
                         </select>
                         <span class="error-message" id="documentTypeError">Debes seleccionar un tipo de documento</span>
                     </div>
@@ -491,12 +490,14 @@
                         <label for="vehicleType">Tipo de Vehículo <span class="required">*</span></label>
                         <select id="vehicleType" name="vehicleType" required>
                             <option value="">-- Selecciona un vehículo --</option>
-                            <option value="economico">Económico (Ej: Toyota Yaris)</option>
-                            <option value="compacto">Compacto (Ej: Honda Civic)</option>
-                            <option value="sedan">Sedán (Ej: Toyota Camry)</option>
-                            <option value="suv">SUV (Ej: Toyota RAV4)</option>
-                            <option value="pickup">Pickup (Ej: Ford Ranger)</option>
-                            <option value="minivan">Miniván (Ej: Honda Odyssey)</option>
+                            <option value="buggy01">Buggy 01 (Color blanco)</option>
+                            <option value="buggy02">Buggy 02 (Color cielo)</option>
+                            <option value="buggy03">Buggy 03 (Color azul oscuro)</option>
+                            <option value="buggy04">Buggy 04 (Color amarillo)</option>
+                            <option value="buggy06">Buggy 06 (Color rojo)</option>
+                            <option value="buggy09">Buggy 09 (Color rosa)</option>
+                            <option value="jeep07">Zuzuki JEEP (Jimmy 07)</option>
+                            <option value="jeep08">Zuzuki JEEP (Jimmy 08)</option>
                         </select>
                         <span class="error-message" id="vehicleTypeError">Debes seleccionar un tipo de vehículo</span>
                     </div>
@@ -526,12 +527,9 @@
                         <label for="pickupLocation">Lugar de Retiro <span class="required">*</span></label>
                         <select id="pickupLocation" name="pickupLocation" required>
                             <option value="">-- Selecciona una ubicación --</option>
-                            <option value="aeropuerto">Aeropuerto Internacional</option>
-                            <option value="centrocc">Centro Comercial Downtown</option>
-                            <option value="hotelx">Hotel X - Zona Turística</option>
-                            <option value="estacion">Estación Central</option>
-                            <option value="otro">Otra ubicación</option>
-                        </select>
+                            <option value="centro">CENTRO</option>
+                            <option value="hotelx">HOTEL</option>
+                            </select>
                         <span class="error-message" id="pickupLocationError">Debes seleccionar un lugar de retiro</span>
                     </div>
                 </div>
@@ -541,11 +539,8 @@
                         <label for="returnLocation">Lugar de Devolución <span class="required">*</span></label>
                         <select id="returnLocation" name="returnLocation" required>
                             <option value="">-- Selecciona una ubicación --</option>
-                            <option value="aeropuerto">Aeropuerto Internacional</option>
-                            <option value="centrocc">Centro Comercial Downtown</option>
-                            <option value="hotelx">Hotel X - Zona Turística</option>
-                            <option value="estacion">Estación Central</option>
-                            <option value="otro">Otra ubicación</option>
+                           <option value="centro">CENTRO</option>
+                            <option value="hotelx">HOTEL</option>
                         </select>
                         <span class="error-message" id="returnLocationError">Debes seleccionar un lugar de devolución</span>
                     </div>
@@ -559,11 +554,11 @@
                     <div class="checkbox-group">
                         <div class="checkbox-item">
                             <input type="checkbox" id="seguroBasico" name="seguros" value="basico">
-                            <label for="seguroBasico">Seguro Básico - $10/día (Cobertura contra colisiones menores)</label>
+                            <label for="seguroBasico">Seguro Básico - $500 (Cobertura contra colisiones menores)</label>
                         </div>
                         <div class="checkbox-item">
                             <input type="checkbox" id="seguroCompleto" name="seguros" value="completo">
-                            <label for="seguroCompleto">Seguro Completo - $25/día (Cobertura total)</label>
+                            <label for="seguroCompleto">Seguro Completo - $1000 (Cobertura total)</label>
                         </div>
                         <div class="checkbox-item">
                             <input type="checkbox" id="asistencia" name="seguros" value="asistencia">
@@ -581,7 +576,7 @@
                         </div>
                         <div class="radio-item">
                             <input type="radio" id="entregaDomicilio" name="entrega" value="domicilio">
-                            <label for="entregaDomicilio">Entrega a Domicilio (+$15)</label>
+                            <label for="entregaDomicilio">Entrega a Domicilio (+$150)</label>
                         </div>
                     </div>
                 </div>
@@ -597,7 +592,6 @@
                             <option value="tarjeta">Tarjeta de Crédito/Débito</option>
                             <option value="transferencia">Transferencia Bancaria</option>
                             <option value="efectivo">Efectivo en Sede</option>
-                            <option value="paypal">PayPal</option>
                         </select>
                         <span class="error-message" id="paymentMethodError">Debes seleccionar un método de pago</span>
                     </div>
@@ -615,7 +609,7 @@
 
                 <!-- MENSAJE DE ÉXITO -->
                 <div class="success-message" id="successMessage">
-                    ✅ ¡Formulario enviado exitosamente! Nos contactaremos pronto para confirmar tu reserva.
+                    ✅ ¡Formulario enviado exitosamente! 
                 </div>
 
                 <!-- BOTONES -->
