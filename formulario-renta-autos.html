@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario de Contratación - AutoRenta</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+
+        .form-container {
+            padding: 40px;
+        }
+
+        .section-title {
+            font-size: 1.5em;
+            color: #333;
+            margin-top: 30px;
+            margin-bottom: 20px;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 10px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .form-row.full {
+            grid-template-columns: 1fr;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 8px;
+            font-size: 0.95em;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="phone"],
+        input[type="date"],
+        input[type="number"],
+        select,
+        textarea {
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 5px;
+            font-size: 1em;
+            font-family: inherit;
+            transition: border-color 0.3s ease;
+        }
+
+        input[type="text"]:focus,
+        input[type="email"]:focus,
+        input[type="phone"]:focus,
+        input[type="date"]:focus,
+        input[type="number"]:focus,
+        select:focus,
+        textarea:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 5px rgba(102, 126, 234, 0.1);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .checkbox-group,
+        .radio-group {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 8px;
+        }
+
+        .checkbox-item,
+        .radio-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        input[type="checkbox"],
+        input[type="radio"] {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+            accent-color: #667eea;
+        }
+
+        .checkbox-item label,
+        .radio-item label {
+            margin: 0;
+            cursor: pointer;
+            font-weight: normal;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 15px;
+            margin-top: 40px;
+            justify-content: center;
+        }
+
+        button {
+            padding: 15px 40px;
+            font-size: 1.1em;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .btn-submit {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            min-width: 200px;
+        }
+
+        .btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-reset {
+            background: #f0f0f0;
+            color: #333;
+            min-width: 200px;
+        }
+
+        .btn-reset:hover {
+            background: #e0e0e0;
+        }
+
+        .success-message {
+            display: none;
+            background: #4caf50;
+            color: white;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .error-message {
+            color: #d32f2f;
+            font-size: 0.85em;
+            margin-top: 5px;
+            display: none;
+        }
+
+        .required {
+            color: #d32f2f;
+        }
+
+        @media (max-width: 768px) {
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .header h1 {
+                font-size: 1.8em;
+            }
+
+            .form-container {
+                padding: 20px;
+            }
+
+            .button-group {
+                flex-direction: column;
+            }
+
+            button {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🚗 AutoRenta</h1>
+            <p>Formulario de Contratación de Renta de Vehículos</p>
+        </div>
+
+        <div class="form-container">
+            <form id="rentalForm">
+                <!-- SECCIÓN: DATOS PERSONALES -->
+                <h2 class="section-title">📋 Datos Personales</h2>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="firstName">Nombre <span class="required">*</span></label>
+                        <input type="text" id="firstName" name="firstName" required>
+                        <span class="error-message" id="firstNameError">El nombre es requerido</span>
+                    </div>
+                    <div class="form-group">
+                        <label for="lastName">Apellido <span class="required">*</span></label>
+                        <input type="text" id="lastName" name="lastName" required>
+                        <span class="error-message" id="lastNameError">El apellido es requerido</span>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="email">Correo Electrónico <span class="required">*</span></label>
+                        <input type="email" id="email" name="email" required>
+                        <span class="error-message" id="emailError">Ingresa un correo válido</span>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Teléfono <span class="required">*</span></label>
+                        <input type="phone" id="phone" name="phone" required>
+                        <span class="error-message" id="phoneError">El teléfono es requerido</span>
+                    </div>
+                </div>
+
+                <!-- SECCIÓN: DOCUMENTO DE IDENTIDAD -->
+                <h2 class="section-title">🆔 Documento de Identidad</h2>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="documentType">Tipo de Documento <span class="required">*</span></label>
+                        <select id="documentType" name="documentType" required>
+                            <option value="">-- Selecciona un tipo --</option>
+                            <option value="cedula">Cédula de Identidad</option>
+                            <option value="pasaporte">Pasaporte</option>
+                            <option value="licencia">Licencia de Conducir</option>
+                            <option value="otro">Otro</option>
+                        </select>
+                        <span class="error-message" id="documentTypeError">Debes seleccionar un tipo de documento</span>
+                    </div>
+                    <div class="form-group">
+                        <label for="documentNumber">Número de Documento <span class="required">*</span></label>
+                        <input type="text" id="documentNumber" name="documentNumber" required>
+                        <span class="error-message" id="documentNumberError">El número de documento es requerido</span>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="licenseNumber">Número de Licencia de Conducir <span class="required">*</span></label>
+                        <input type="text" id="licenseNumber" name="licenseNumber" required>
+                        <span class="error-message" id="licenseNumberError">El número de licencia es requerido</span>
+                    </div>
+                    <div class="form-group">
+                        <label for="licenseExpiry">Vencimiento de Licencia <span class="required">*</span></label>
+                        <input type="date" id="licenseExpiry" name="licenseExpiry" required>
+                        <span class="error-message" id="licenseExpiryError">La fecha de vencimiento es requerida</span>
+                    </div>
+                </div>
+
+                <!-- SECCIÓN: SELECCIÓN DE VEHÍCULO -->
+                <h2 class="section-title">🚙 Selección de Vehículo</h2>
+
+                <div class="form-row full">
+                    <div class="form-group">
+                        <label for="vehicleType">Tipo de Vehículo <span class="required">*</span></label>
+                        <select id="vehicleType" name="vehicleType" required>
+                            <option value="">-- Selecciona un vehículo --</option>
+                            <option value="economico">Económico (Ej: Toyota Yaris)</option>
+                            <option value="compacto">Compacto (Ej: Honda Civic)</option>
+                            <option value="sedan">Sedán (Ej: Toyota Camry)</option>
+                            <option value="suv">SUV (Ej: Toyota RAV4)</option>
+                            <option value="pickup">Pickup (Ej: Ford Ranger)</option>
+                            <option value="minivan">Miniván (Ej: Honda Odyssey)</option>
+                        </select>
+                        <span class="error-message" id="vehicleTypeError">Debes seleccionar un tipo de vehículo</span>
+                    </div>
+                </div>
+
+                <!-- SECCIÓN: FECHAS DE RENTA -->
+                <h2 class="section-title">📅 Fechas de Renta</h2>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="pickupDate">Fecha de Retiro <span class="required">*</span></label>
+                        <input type="date" id="pickupDate" name="pickupDate" required>
+                        <span class="error-message" id="pickupDateError">La fecha de retiro es requerida</span>
+                    </div>
+                    <div class="form-group">
+                        <label for="returnDate">Fecha de Devolución <span class="required">*</span></label>
+                        <input type="date" id="returnDate" name="returnDate" required>
+                        <span class="error-message" id="returnDateError">La fecha de devolución es requerida</span>
+                    </div>
+                </div>
+
+                <!-- SECCIÓN: UBICACIONES -->
+                <h2 class="section-title">📍 Ubicaciones</h2>
+
+                <div class="form-row full">
+                    <div class="form-group">
+                        <label for="pickupLocation">Lugar de Retiro <span class="required">*</span></label>
+                        <select id="pickupLocation" name="pickupLocation" required>
+                            <option value="">-- Selecciona una ubicación --</option>
+                            <option value="aeropuerto">Aeropuerto Internacional</option>
+                            <option value="centrocc">Centro Comercial Downtown</option>
+                            <option value="hotelx">Hotel X - Zona Turística</option>
+                            <option value="estacion">Estación Central</option>
+                            <option value="otro">Otra ubicación</option>
+                        </select>
+                        <span class="error-message" id="pickupLocationError">Debes seleccionar un lugar de retiro</span>
+                    </div>
+                </div>
+
+                <div class="form-row full">
+                    <div class="form-group">
+                        <label for="returnLocation">Lugar de Devolución <span class="required">*</span></label>
+                        <select id="returnLocation" name="returnLocation" required>
+                            <option value="">-- Selecciona una ubicación --</option>
+                            <option value="aeropuerto">Aeropuerto Internacional</option>
+                            <option value="centrocc">Centro Comercial Downtown</option>
+                            <option value="hotelx">Hotel X - Zona Turística</option>
+                            <option value="estacion">Estación Central</option>
+                            <option value="otro">Otra ubicación</option>
+                        </select>
+                        <span class="error-message" id="returnLocationError">Debes seleccionar un lugar de devolución</span>
+                    </div>
+                </div>
+
+                <!-- SECCIÓN: OPCIONES ADICIONALES -->
+                <h2 class="section-title">➕ Opciones Adicionales</h2>
+
+                <div class="form-group">
+                    <label>Seguros y Protecciones</label>
+                    <div class="checkbox-group">
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="seguroBasico" name="seguros" value="basico">
+                            <label for="seguroBasico">Seguro Básico - $10/día (Cobertura contra colisiones menores)</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="seguroCompleto" name="seguros" value="completo">
+                            <label for="seguroCompleto">Seguro Completo - $25/día (Cobertura total)</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="asistencia" name="seguros" value="asistencia">
+                            <label for="asistencia">Asistencia en Ruta 24/7 - $5/día</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group" style="margin-top: 20px;">
+                    <label>Opciones de Entrega</label>
+                    <div class="radio-group">
+                        <div class="radio-item">
+                            <input type="radio" id="entregaSede" name="entrega" value="sede" checked>
+                            <label for="entregaSede">Retiro en Sede</label>
+                        </div>
+                        <div class="radio-item">
+                            <input type="radio" id="entregaDomicilio" name="entrega" value="domicilio">
+                            <label for="entregaDomicilio">Entrega a Domicilio (+$15)</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SECCIÓN: INFORMACIÓN DE PAGO -->
+                <h2 class="section-title">💳 Forma de Pago</h2>
+
+                <div class="form-row full">
+                    <div class="form-group">
+                        <label for="paymentMethod">Método de Pago <span class="required">*</span></label>
+                        <select id="paymentMethod" name="paymentMethod" required>
+                            <option value="">-- Selecciona un método --</option>
+                            <option value="tarjeta">Tarjeta de Crédito/Débito</option>
+                            <option value="transferencia">Transferencia Bancaria</option>
+                            <option value="efectivo">Efectivo en Sede</option>
+                            <option value="paypal">PayPal</option>
+                        </select>
+                        <span class="error-message" id="paymentMethodError">Debes seleccionar un método de pago</span>
+                    </div>
+                </div>
+
+                <!-- SECCIÓN: COMENTARIOS ADICIONALES -->
+                <h2 class="section-title">📝 Comentarios Adicionales</h2>
+
+                <div class="form-row full">
+                    <div class="form-group">
+                        <label for="comments">Observaciones o Solicitudes Especiales</label>
+                        <textarea id="comments" name="comments" placeholder="Cuéntanos si tienes alguna solicitud especial..."></textarea>
+                    </div>
+                </div>
+
+                <!-- SECCIÓN: TÉRMINOS Y CONDICIONES -->
+                <div class="form-row full" style="margin-top: 30px;">
+                    <div class="form-group">
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="terms" name="terms" required>
+                            <label for="terms">Acepto los Términos y Condiciones <span class="required">*</span></label>
+                        </div>
+                        <span class="error-message" id="termsError">Debes aceptar los términos y condiciones</span>
+                    </div>
+                </div>
+
+                <div class="form-row full">
+                    <div class="form-group">
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="privacy" name="privacy" required>
+                            <label for="privacy">Acepto la Política de Privacidad <span class="required">*</span></label>
+                        </div>
+                        <span class="error-message" id="privacyError">Debes aceptar la política de privacidad</span>
+                    </div>
+                </div>
+
+                <!-- MENSAJE DE ÉXITO -->
+                <div class="success-message" id="successMessage">
+                    ✅ ¡Formulario enviado exitosamente! Nos contactaremos pronto para confirmar tu reserva.
+                </div>
+
+                <!-- BOTONES -->
+                <div class="button-group">
+                    <button type="submit" class="btn-submit">✓ Enviar Solicitud de Renta</button>
+                    <button type="reset" class="btn-reset">✕ Limpiar Formulario</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        const form = document.getElementById('rentalForm');
+
+        // Validación en tiempo real
+        form.addEventListener('input', function(e) {
+            const field = e.target;
+            validateField(field);
+        });
+
+        // Validación al cambiar select
+        form.addEventListener('change', function(e) {
+            const field = e.target;
+            validateField(field);
+        });
+
+        // Validación al hacer submit
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            // Validar todos los campos
+            let isValid = true;
+            const fields = form.querySelectorAll('input, select, textarea');
+
+            fields.forEach(field => {
+                if (!validateField(field)) {
+                    isValid = false;
+                }
+            });
+
+            // Validar fechas
+            const pickupDate = new Date(document.getElementById('pickupDate').value);
+            const returnDate = new Date(document.getElementById('returnDate').value);
+            const today = new Date();
+
+            if (pickupDate < today) {
+                showError('pickupDateError', 'La fecha de retiro no puede ser en el pasado');
+                isValid = false;
+            }
+
+            if (returnDate <= pickupDate) {
+                showError('returnDateError', 'La fecha de devolución debe ser posterior a la de retiro');
+                isValid = false;
+            }
+
+            if (isValid) {
+                // Recopilar datos del formulario
+                const formData = new FormData(form);
+                const data = Object.fromEntries(formData);
+
+                console.log('Datos del formulario:', data);
+
+                // Mostrar mensaje de éxito
+                document.getElementById('successMessage').style.display = 'block';
+
+                // Aquí irían las acciones adicionales (envío a servidor, etc.)
+                setTimeout(() => {
+                    // Opcional: resetear el formulario después de 3 segundos
+                    // form.reset();
+                    // document.getElementById('successMessage').style.display = 'none';
+                }, 3000);
+
+                // Scroll hacia el mensaje de éxito
+                document.getElementById('successMessage').scrollIntoView({ behavior: 'smooth' });
+            }
+        });
+
+        function validateField(field) {
+            const errorElement = document.getElementById(field.id + 'Error');
+
+            if (!errorElement) return true;
+
+            let isValid = true;
+            let errorMessage = '';
+
+            if (field.type === 'checkbox' && field.hasAttribute('required')) {
+                isValid = field.checked;
+                errorMessage = `${field.previousElementSibling?.textContent || field.id} es requerido`;
+            } else if (field.type === 'radio' && field.hasAttribute('required')) {
+                const radioGroup = form.querySelectorAll(`input[name="${field.name}"]`);
+                isValid = Array.from(radioGroup).some(radio => radio.checked);
+            } else if (field.type === 'email') {
+                isValid = field.value.includes('@') && field.value.includes('.');
+                errorMessage = 'Ingresa un correo válido';
+            } else if (field.hasAttribute('required')) {
+                isValid = field.value.trim() !== '';
+                errorMessage = `${field.previousElementSibling?.textContent || field.id} es requerido`;
+            }
+
+            if (isValid) {
+                hideError(field.id + 'Error');
+            } else {
+                showError(field.id + 'Error', errorMessage);
+            }
+
+            return isValid;
+        }
+
+        function showError(elementId, message) {
+            const errorElement = document.getElementById(elementId);
+            if (errorElement) {
+                errorElement.textContent = message || errorElement.textContent;
+                errorElement.style.display = 'block';
+            }
+        }
+
+        function hideError(elementId) {
+            const errorElement = document.getElementById(elementId);
+            if (errorElement) {
+                errorElement.style.display = 'none';
+            }
+        }
+
+        // Validación de fechas en tiempo real
+        document.getElementById('pickupDate').addEventListener('change', function() {
+            const pickupDate = new Date(this.value);
+            const returnDateInput = document.getElementById('returnDate');
+            
+            // Establecer fecha mínima de devolución
+            const minReturnDate = new Date(pickupDate);
+            minReturnDate.setDate(minReturnDate.getDate() + 1);
+            returnDateInput.min = minReturnDate.toISOString().split('T')[0];
+        });
+    </script>
+</body>
+</html>
