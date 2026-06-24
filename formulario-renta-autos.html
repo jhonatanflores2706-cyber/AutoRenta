@@ -895,15 +895,7 @@
             const returnDate = new Date(document.getElementById('returnDate').value);
             const today = new Date();
 
-            if (pickupDate < yesterday) {
-                showError('pickupDateError', 'La fecha de retiro no puede ser en el pasado');
-                isValid = false;
-            }
-
-            if (returnDate <= pickupDate) {
-                showError('returnDateError', 'La fecha de devolución debe ser posterior a la de retiro');
-                isValid = false;
-            }
+            
 
             if (isValid) {
                 // Recopilar datos del formulario
@@ -973,16 +965,7 @@
             }
         }
 
-        // Validación de fechas en tiempo real
-        document.getElementById('pickupDate').addEventListener('change', function() {
-            const pickupDate = new Date(this.value);
-            const returnDateInput = document.getElementById('returnDate');
-            
-            // Establecer fecha mínima de devolución
-            const minReturnDate = new Date(pickupDate);
-            minReturnDate.setDate(minReturnDate.getDate() + 0);
-            returnDateInput.min = minReturnDate.toISOString().split('T')[0];
-        });
+    
     </script>
 </body>
 </html>
