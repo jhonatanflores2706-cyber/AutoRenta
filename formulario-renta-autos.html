@@ -456,9 +456,9 @@
                         <label for="documentType">Tipo de Documento <span class="required">*</span></label>
                         <select id="documentType" name="documentType" required>
                             <option value="">-- Selecciona un tipo --</option>
-                            <option value="cedula">Cédula o INE</option>
-                            <option value="pasaporte">Pasaporte</option>
-                            <option value="licencia">Licencia de Conducir</option>
+                            <option value="CEDULA O INE">Cédula o INE</option>
+                            <option value="PASAPORTE">Pasaporte</option>
+                            <option value="LICENCIA">Licencia de Conducir</option>
                         </select>
                         <span class="error-message" id="documentTypeError">Debes seleccionar un tipo de documento</span>
                     </div>
@@ -856,7 +856,7 @@
             const element = document.getElementById('contractContent');
             const opt = {
                 margin: 10,
-                filename: `contrato_autorenta_${Date.now()}.pdf`,
+                filename: `Contrato_MykeTours_${Date.now()}.pdf`,
                 image: { type: 'jpeg', quality: 0.98 },
                 html2canvas: { scale: 2 },
                 jsPDF: { orientation: 'portrait', unit: 'mm', format: 'a4' }
@@ -895,7 +895,7 @@
             const returnDate = new Date(document.getElementById('returnDate').value);
             const today = new Date();
 
-            if (pickupDate < today) {
+            if (pickupDate < yesterday) {
                 showError('pickupDateError', 'La fecha de retiro no puede ser en el pasado');
                 isValid = false;
             }
@@ -980,7 +980,7 @@
             
             // Establecer fecha mínima de devolución
             const minReturnDate = new Date(pickupDate);
-            minReturnDate.setDate(minReturnDate.getDate() + 1);
+            minReturnDate.setDate(minReturnDate.getDate() + 0);
             returnDateInput.min = minReturnDate.toISOString().split('T')[0];
         });
     </script>
