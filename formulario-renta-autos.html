@@ -673,16 +673,6 @@
             const returnDate = new Date(document.getElementById('returnDate').value);
             const today = new Date();
 
-            if (pickupDate < today) {
-                showError('pickupDateError', 'La fecha de retiro no puede ser en el pasado');
-                isValid = false;
-            }
-
-            if (returnDate <= pickupDate) {
-                showError('returnDateError', 'La fecha de devolución debe ser posterior a la de retiro');
-                isValid = false;
-            }
-
             if (isValid) {
                 generateContract();
             }
