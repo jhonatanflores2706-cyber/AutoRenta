@@ -828,21 +828,30 @@
         }
 
         function downloadContract() {
-           
-
-    <script type="text/javascript" src="jspdf.min.js"></script>
-    <script type="text/javascript">
-        function genPDF(){
-            var doc=new jsPDF();
-            let mensaje=document.getElementById('esc').value;
-            doc.text(20,20,mensaje);
-            doc.addPage();
-            doc.text(20,20,'Mi trabajo!!');
-            doc.save('Test.pdf');
-        }
-    
+            try {
+                const element = document.getElementById('contractContent');
+                const clientName = document.getElementById('firstName').value + '_' + document.getElementById('lastName').value;
                 
-        
+                const opt = {
+                    margin: [10, 10, 10, 10],
+                    filename: `Contrato_MikeTours_${clientName}_${Date.now()}.pdf`,
+                    image: { type: 'jpeg', quality: 0.98 },
+                    html2canvas: { scale: 2, useCORS: true, logging: false, allowTaint: true },
+                    jsPDF: { orientation: 'portrait', unit: 'mm', format: 'a4' }
+                };
+                
+                html2pdf()
+                    .set(opt)
+                    .from(element)
+                    .save()
+                    .catch(err => {
+                        console.error('Error al descargar PDF:', err);
+                        alert('Error al descargar el PDF. Intenta nuevamente.');
+                    });
+            } catch (error) {
+                console.error('Error en downloadContract:', error);
+                alert('Error al procesar la descarga del PDF.');
+            }
         }
 
         // Validación en tiempo real
@@ -941,7 +950,6 @@
             }
         }
 
-    
     </script>
 </body>
 </html>
