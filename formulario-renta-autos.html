@@ -693,11 +693,6 @@
 
             const seguros = Array.from(document.querySelectorAll('input[name="seguros"]:checked')).map(el => el.value).join(', ') || 'Ninguno';
 
-            // Calcular días de renta
-            const pickup = new Date(formData.pickupDate);
-            const returnD = new Date(formData.returnDate);
-            const days = Math.ceil((returnD - pickup) / (1000 * 60 * 60 * 24));
-
             const contractHTML = `
                 <div class="contract-title">CONTRATO DE ALQUILER DE VEHÍCULO</div>
 
@@ -761,12 +756,6 @@
                         <div class="contract-field">
                             <span class="contract-label">Fecha de Devolución:</span>
                             <span class="contract-value">${formData.returnDate}</span>
-                        </div>
-                    </div>
-                    <div class="contract-data">
-                        <div class="contract-field">
-                            <span class="contract-label">Duración de Renta:</span>
-                            <span class="contract-value">${days} día(s)</span>
                         </div>
                     </div>
                     <div class="contract-data">
