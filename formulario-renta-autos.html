@@ -641,6 +641,7 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
+    
 
     <script>
         const form = document.getElementById('rentalForm');
@@ -840,6 +841,10 @@
                     html2canvas: { scale: 2, useCORS: true, logging: false, allowTaint: true },
                     jsPDF: { orientation: 'portrait', unit: 'mm', format: 'a4' }
                 };
+                
+                html2canvas(document.querySelector("#capture")).then(canvas => {
+                            document.body.appendChild(canvas)
+                        });
                 
                 html2pdf()
                     .set(opt)
