@@ -842,10 +842,7 @@
                     jsPDF: { orientation: 'portrait', unit: 'mm', format: 'a4' }
                 };
                 
-                html2canvas(document.querySelector("#capture")).then(canvas => {
-                            document.body.appendChild(canvas)
-                        });
-                
+                                
                 html2pdf()
                     .set(opt)
                     .from(element)
