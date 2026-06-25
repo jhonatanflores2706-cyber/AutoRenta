@@ -843,7 +843,7 @@
                 html2pdf()
                     .set(opt)
                     .from(element)
-                    .save()
+                    .save('Test.pdf')
                     .catch(err => {
                         console.error('Error al descargar PDF:', err);
                         alert('Error al descargar el PDF. Intenta nuevamente.');
