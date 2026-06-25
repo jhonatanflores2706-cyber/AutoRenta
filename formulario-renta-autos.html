@@ -669,6 +669,10 @@
                     isValid = false;
                 }
             });
+
+            if (isValid) {
+                generateContract();
+            }
         });
 
         function generateContract() {
@@ -826,14 +830,15 @@
 
         function downloadContract() {
             const element = document.getElementById('contractContent');
+            const clientName = document.getElementById('firstName').value + '_' + document.getElementById('lastName').value;
             const opt = {
                 margin: 10,
-                filename: `Contrato_MykeTours_${Date.now()}.pdf`,
+                filename: `Contrato_MikeTours_${clientName}_${Date.now()}.pdf`,
                 image: { type: 'jpeg', quality: 0.98 },
                 html2canvas: { scale: 2 },
                 jsPDF: { orientation: 'portrait', unit: 'mm', format: 'a4' }
             };
-            html2pdf().set(opt).save(opt.filename);
+            html2pdf().set(opt).from(element).save();
         }
 
         // Validación en tiempo real
